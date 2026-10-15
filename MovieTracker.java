@@ -2,8 +2,8 @@ import java.util.HashMap;
 import java.util.HashSet;
 
 /**
- * Name:
- * Date:
+ * Name: Ben Tournier
+ * Date: October 15, 2026
  */
 
 public class MovieTracker {
@@ -22,19 +22,28 @@ public class MovieTracker {
      * If the user is new, an empty set is created for them first.
      */
     public void addMovie(String userName, Movie movie) {
+        if (!watchedMovies.containsKey(userName)) {
+            watchedMovies.put(userName, new HashSet<Movie>());
+        }
+        watchedMovies.get(userName).add(movie);
     }
 
     /**
      * getMovies returns the set of movies the given user has watched.
+     * If the user is unknown, an empty set is returned.
      */
     public HashSet<Movie> getMovies(String userName) {
+        if (!watchedMovies.containsKey(userName)) {
+            return new HashSet<Movie>();
+        }
+        return watchedMovies.get(userName);
     }
 
     /**
      * hasWatched checks whether the given user has watched the given movie.
      */
     public boolean hasWatched(String userName, Movie movie) {
-        
+        return getMovies(userName).contains(movie);
     }
 
 }
